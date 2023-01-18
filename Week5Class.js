@@ -1,3 +1,28 @@
+//assignment brainstorm
+//objects incolded in card game of war
+// - cards 
+    // - face vs number ?? coming back
+    // suits - clubs, spades, diamonds, hearts
+    // value aces high
+// deck
+    // array of 52 cards
+    // shuffle
+    // deal
+// game?
+    // start game
+// - players
+    // 2 platers for assignment
+    //points
+// - Time ?
+
+
+// set up to start automatically
+// 1. set players, shuffle, deal cards, start 26 rounds, give points, end game
+// alert(), console.log the game outcome.
+
+
+
+
 // INHERITANCE
 
 
@@ -64,6 +89,14 @@ console.log(mySquare.toString());
 
 let myTriangle = new Triangle(3,5);
 console.log(myTriangle.toString());
+
+let shapes = [new Rectangle(3,5), new Square(3), new Triangle(3,5)]                                         
+
+
+
+
+
+
 
 class Circle {
     static get PI() {return 3.14159}
