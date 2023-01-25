@@ -1,37 +1,37 @@
-class Player {
-    constructor(name, position) {
+class Teacher {
+    constructor(name, cls) {
         this.name = name;
-        this.position = position;
+        this.cls = cls
     }
 
     describe() {
-        return `${this.name} plays ${this.position}`;
+        return `${this.name} is a teacher, and they teach ${this.cls}.`;
     }
 }
 
-class Team {
+class Subject {
     constructor(name) {
         this.name = name;
-        this.players = [];
+        this.teachers = [];
     }
 
-    addPlayer(player) {
-        if (player instanceof Player) {
-            this.players.push(player);
+    addTeacher(teacher) {
+        if (teacher instanceof Teacher) {
+            this.teachers.push(teacher);
         } else {
-            throw new Error(`You can only add an instance of Player. Argument is not a player: ${player}`);
+            throw new Error(`You can only add an instance of Teacher. Argument is not a Teacher: ${teacher}`);
         }
     }
 
     describe() {
-    return `${this.name} has ${this.players.length} players.`;
+    return `${this.name} has ${this.teachers.length} Teacher(s).`;
     }
 }
 
 class Menu {
     constructor() {
-        this.teams = [];
-        this.selectedTeam = null;
+        this.subjects = [];
+        this.selectedSubject = null;
     }
 
     start() {
@@ -39,16 +39,16 @@ class Menu {
         while (selection != 0) {
             switch (selection) {
                 case '1':
-                    this.createTeam();
+                    this.createSubject();
                     break;
                 case '2':
-                    this.viewTeam();
+                    this.viewSubject();
                     break;
                 case '3':
-                    this.deleteTeam();
+                    this.deleteSubject();
                     break;
                 case '4':
-                    this.displayTeam();
+                    this.displaySubject();
                     break;
                 default:
                     selection = 0;
@@ -61,76 +61,76 @@ class Menu {
 
     ShowMainMenuOptions() {
         return prompt(`
-        0) exit
-        1) create new team
-        2) view team
-        3) delete team
-        4) display all teams
+        0) Exit
+        1) Create new Subject.
+        2) View Subject.
+        3) Delete Subjects.
+        4) Display all Subjects.
         `);
     }
 
-    showTeamMenuOotions(teamInfo) {
+    ShowSubjectMenuOptions(subjectInfo) {
         return prompt(`
         0) back
-        1) create player
-        2) delete player
+        1) create Teacher
+        2) delete Teacher
         --------------------
-        ${teamInfo}
+        ${subjectInfo}
         `)
     }
 
-    displayTeam() {
-        let teamString = '';
-        for (let i = 0; i < this.teams.length; i++) {
-            teamString += i + ') ' + this.teams[i].name + '\n';
+    displaySubject() {
+        let subjectString = '';
+        for (let i = 0; i < this.subjects.length; i++) {
+            subjectString += i + ') ' + this.subjects[i].name + '\n';
         }
-        alert(teamString);
+        alert(subjectString);
     }
 
-    createTeam() {
-        let name = prompt('Enter name for new team:');
-        this.teams.push(new Team(name));
+    createSubject() {
+        let name = prompt('Enter name for new Subject:');
+        this.subjects.push(new Subject(name));
     }
 
-    viewTeam() {
-        let index = prompt('Enter the index of the team you wish to view:');
-        if (index > -1 && index < this.teams.length) {
-            this.selectedTeam = this.teams[index];
-            let description = 'Team Name: ' + this.selectedTeam.name + '\n';
+    viewSubject() {
+        let index = prompt('Enter the index of the Subject you wish to view:');
+        if (index > -1 && index < this.subjects.length) {
+            this.selectedSubject = this.subjects[index];
+            let description = 'Subject Name: ' + this.selectedSubject.name + '\n';
             
-            for (let i = 0; i < this.selectedTeam.players.length; i++) {
-                description += i + ') ' + this.selectedTeam.players[i].name 
-                + ' - ' + this.selectedTeam.players[i].position + '\n';
+            for (let i = 0; i < this.selectedSubject.teachers.length; i++) {
+                description += i + ') ' + this.selectedSubject.teachers[i].name 
+                + ' - ' + this.selectedSubject.teachers[i].cls + '\n';
             }
 
-            let selection = this.ShowMainMenuOptions(description);
+            let selection = this.ShowSubjectMenuOptions(description);
             switch(selection) {
                 case '1':
-                    this.createPlayer();
+                    this.createTeacher();
                     break;
                 case '2':
-                    this.deletePlayer();
+                    this.deleteTeacher();
             }
         }
     }
 
-    deleteTeam() {
+    deleteSubject() {
         let index = prompt('Enter the index of the team you wish to delete:');
-        if (index > -1 && index < this.teams.length) {
-            this.teams.splice(index,1);
+        if (index > -1 && index < this.subjects.length) {
+            this.subjects.splice(index,1);
         }
     }
 
-    createPlayer() {
-        let name =prompt('Enter name for new player:');
-        let position = prompt('Enter position for new player:');
-        this.selectedTeam.players.push(new Player(name, position));
+    createTeacher() {
+        let name =prompt('Enter name for new Teacher:');
+        let cls =prompt('Enter the name of the class the Teacher facilitates:')
+        this.selectedSubject.teachers.push(new Teacher(name,cls));
     }
 
-    deletePlayer() {
-        let index = prompt('Enter the index of the player you wish to delete:');
-        if (index > -1 && index < this.selectedTeam.players.length) {
-            this.selectedTeam.players.splice(index, 1);
+    deleteTeacher() {
+        let index = prompt('Enter the index of the Teacher you wish to delete:');
+        if (index > -1 && index < this.selectedSubject.teachers.length) {
+            this.selectedSubject.teachers.splice(index, 1);
         }
     }
 }
